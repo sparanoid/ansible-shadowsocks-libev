@@ -31,8 +31,8 @@
   tags: config
 
 - name: generate init script
-  template: src=shadowsocks.init
-            dest=/etc/init.d/shadowsocks
+  template: src=shadowsocks-libev.init
+            dest=/etc/init.d/shadowsocks-libev
             mode=755
   tags: config
 
@@ -55,6 +55,6 @@
   tags: sysctl
 
 - name: start and enable service
-  service: name=shadowsocks
+  service: name=shadowsocks-libev
            state=started
            enabled=yes
