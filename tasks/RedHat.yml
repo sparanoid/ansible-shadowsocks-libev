@@ -21,8 +21,8 @@
   file: path={{ shadowsocks_home }} state=directory
 
 - name: generate config file
-  template: src=shadowsocks.json
-            dest={{ shadowsocks_home }}/shadowsocks.json
+  template: src=shadowsocks-libev.json
+            dest={{ shadowsocks_home }}/shadowsocks-libev.json
             mode=640
             owner=root
             group=root
