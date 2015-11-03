@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# /etc/init.d/shadowsocks
+# /etc/init.d/shadowsocks-libev
 
 ### BEGIN INIT INFO
 # Provides:          ssserver
@@ -8,16 +8,16 @@
 # Required-Stop:     $all
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: start and stop shadowsocks server
-# Description:       shadowsocks is a secured socks5 proxy, designed to protect your internet traffic.
+# Short-Description: start and stop shadowsocks-libev server
+# Description:       shadowsocks-libev is a secured socks5 proxy, designed to protect your internet traffic.
 ### END INIT INFO
 
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-name=shadowsocks
+name=shadowsocks-libev
 ssserver=/usr/bin/ss-server
-conffile={{ shadowsocks_home }}/shadowsocks.json
+conffile={{ shadowsocks_home }}/shadowsocks-libev.json
 pidfile=/var/run/$name.pid
 lockfile=/var/lock/subsys/$name
 

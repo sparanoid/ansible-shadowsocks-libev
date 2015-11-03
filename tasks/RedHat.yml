@@ -14,10 +14,10 @@
 - name: install dependencies
   yum: name={{ item }}
   with_items: shadowsocks_dependencies
-  notify: restart shadowsocks
+  notify: restart shadowsocks-libev
   tags: install
 
-- name: assure shadowsocks home dir exists
+- name: assure shadowsocks-libev home dir exists
   file: path={{ shadowsocks_home }} state=directory
 
 - name: generate config file

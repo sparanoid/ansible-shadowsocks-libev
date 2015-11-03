@@ -1,12 +1,12 @@
-# Ansible Role: Shadowsocks
+# Ansible Role: shadowsocks-libev
 
-[![Build Status](https://travis-ci.org/sparanoid/ansible-shadowsocks.svg)](https://travis-ci.org/sparanoid/ansible-shadowsocks)
+[![Build Status](https://travis-ci.org/sparanoid/ansible-shadowsocks-libev.svg)](https://travis-ci.org/sparanoid/ansible-shadowsocks-libev)
 
-Install [Shadowsocks](https://github.com/shadowsocks) via Ansible.
+Install [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev) via Ansible.
 
 ## Features
 
-- Install or upgrade Shadowsocks Python version easily
+- Install or upgrade shadowsocks-libev version easily
 - Tuning `sysctl` automatically for better performance
 - Detect `tcp_fastopen` support
 - Support init startup script
@@ -21,44 +21,44 @@ None
 
 ## Example Playbooks
 
-Install shadowsocks with custom location (default: `/etc/shadowsocks`):
+Install shadowsocks-libev with custom location (default: `/etc/shadowsocks-libev`):
 
 ```yaml
 - hosts: servers
   roles:
-    - { role: sparanoid.shadowsocks, shadowsocks_home: /home/sparanoid/shadowsocks }
+    - { role: sparanoid.shadowsocks-libev, shadowsocks_home: /home/sparanoid/shadowsocks-libev }
 ```
 
-Install shadowsocks with different encryption (default: `aes-256-cfb`):
+Install shadowsocks-libev with different encryption (default: `aes-256-cfb`):
 
 ```yaml
 - hosts: servers
   roles:
-    - { role: sparanoid.shadowsocks, shadowsocks_config_encryption_method: salsa20 }
+    - { role: sparanoid.shadowsocks-libev, shadowsocks_config_encryption_method: salsa20 }
 ```
 
-Install shadowsocks with different server port (default: `443`):
+Install shadowsocks-libev with different server port (default: `443`):
 
 ```yaml
 - hosts: servers
   roles:
-    - { role: sparanoid.shadowsocks, shadowsocks_config_server_port: 9999 }
+    - { role: sparanoid.shadowsocks-libev, shadowsocks_config_server_port: 9999 }
 ```
 
-Install shadowsocks without tuning `sysctl` (default: `shadowsocks_sysctl_tweak: true`):
+Install shadowsocks-libev without tuning `sysctl` (default: `shadowsocks_sysctl_tweak: true`):
 
 ```yaml
 - hosts: servers
   roles:
-    - { role: sparanoid.shadowsocks, shadowsocks_sysctl_tweak: false }
+    - { role: sparanoid.shadowsocks-libev, shadowsocks_sysctl_tweak: false }
 ```
 
-Install shadowsocks using custom specified password (default: `apn!proxy!ss!ftw!`):
+Install shadowsocks-libev using custom specified password (default: `apn!proxy!ss!ftw!`):
 
 ```yaml
 - hosts: servers
   roles:
-    - { role: sparanoid.shadowsocks, shadowsocks_password: "myFancy@Passwd!" }
+    - { role: sparanoid.shadowsocks-libev, shadowsocks_password: "myFancy@Passwd!" }
 ```
 
 You can also define password in command line:
