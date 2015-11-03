@@ -27,7 +27,7 @@
             owner=root
             group=root
             force=yes
-  notify: restart shadowsocks
+  notify: restart shadowsocks-libev
   tags: config
 
 - name: generate init script
