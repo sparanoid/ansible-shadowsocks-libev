@@ -1,0 +1,13 @@
+[Unit]
+Description=shadowsocks-libev - lightweight secured socks5 proxy
+Documentation=man:shadowsocks-libev(8)
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/run/shadowsocks-libev.pid
+ExecStart=/usr/bin/ss-server -c {{ shadowsocks_home }}/shadowsocks-libev.json
+ExecStop=/bin/kill -s INT $MAINPID
+
+[Install]
+WantedBy=multi-user.target

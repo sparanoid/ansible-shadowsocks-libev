@@ -30,10 +30,18 @@
   notify: restart shadowsocks-libev
   tags: config
 
-- name: generate init script
+- name: sync init service
+  template: src=shadowsocks-libev.service
+            dest=/usr/lib/systemd/system/
+            mode=755
+  when: ansible_distribution_version >= '7'
+  tags: config
+
+- name: sync init script
   template: src=shadowsocks-libev.init
             dest=/etc/init.d/shadowsocks-libev
             mode=755
+  when: ansible_distribution_version < '7'
   tags: config
 
 - name: tweak sysctl
