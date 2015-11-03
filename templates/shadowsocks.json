@@ -1,0 +1,13 @@
+{
+    "server": "{{ ansible_default_ipv4.address }}"
+  , "server_port": {{ shadowsocks_config_server_port }}
+  , "local_port": {{ shadowsocks_config_local_port }}
+  , "password": "{{ shadowsocks_password }}"
+  , "timeout": {{ shadowsocks_config_timeout }}
+  , "method": "{{ shadowsocks_config_encryption_method }}"
+  {% if ansible_kernel | version_compare('3.7', '>=') -%}
+  , "fast_open": true
+  {% else -%}
+  , "fast_open": false
+  {% endif %}
+}

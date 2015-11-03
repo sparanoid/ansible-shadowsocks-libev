@@ -1,0 +1,60 @@
+---
+- name: install essential repos (7)
+  get_url: url=https://copr.fedoraproject.org/coprs/librehat/shadowsocks/repo/epel-6/librehat-shadowsocks-epel-6.repo
+           dest=/etc/yum.repos.d/
+  when: ansible_distribution_version >= '7'
+  tags: prepare
+
+- name: install essential repos (6)
+  get_url: url=https://copr.fedoraproject.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo
+           dest=/etc/yum.repos.d/
+  when: ansible_distribution_version < '7'
+  tags: prepare
+
+- name: install dependencies
+  yum: name={{ item }}
+  with_items: shadowsocks_dependencies
+  notify: restart shadowsocks
+  tags: install
+
+- name: assure shadowsocks home dir exists
+  file: path={{ shadowsocks_home }} state=directory
+
+- name: generate config file
+  template: src=shadowsocks.json
+            dest={{ shadowsocks_home }}/shadowsocks.json
+            mode=640
+            owner=root
+            group=root
+            force=yes
+  notify: restart shadowsocks
+  tags: config
+
+- name: generate init script
+  template: src=shadowsocks.init
+            dest=/etc/init.d/shadowsocks
+            mode=755
+  tags: config
+
+- name: tweak sysctl
+  sysctl: name="{{ item.key }}"
+          value="{{ item.value }}"
+          state=present
+          reload=yes
+          ignoreerrors=yes
+  with_items: shadowsocks_sysctl_params
+  when: shadowsocks_sysctl_tweak
+  tags: sysctl
+
+- name: enable tcp_fastopen if available
+  sysctl: name="net.ipv4.tcp_fastopen"
+          value="3"
+          state=present
+          reload=yes
+  when: shadowsocks_sysctl_tweak and ansible_kernel | version_compare('3.7', '>=')
+  tags: sysctl
+
+- name: start and enable service
+  service: name=shadowsocks
+           state=started
+           enabled=yes

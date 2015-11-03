@@ -1,0 +1,3 @@
+---
+shadowsocks_dependencies:
+  - shadowsocks-libev
