@@ -6,7 +6,7 @@ After=network.target
 [Service]
 Type=simple
 PIDFile=/run/shadowsocks-libev.pid
-ExecStart=/usr/bin/ss-server -c {{ shadowsocks_home }}/shadowsocks-libev.json -u
+ExecStart=/usr/bin/ss-server -c {{ shadowsocks_home }}/shadowsocks-libev.json
 ExecStop=/bin/kill -s INT $MAINPID
 
 [Install]

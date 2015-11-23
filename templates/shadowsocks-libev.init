@@ -36,7 +36,7 @@ start() {
     exit 0
   else
     echo "Starting ${name}"
-    daemon $ssserver -c $conffile -u -f $pidfile
+    daemon $ssserver -c $conffile -f $pidfile
   fi
 
   RETVAL=$?
