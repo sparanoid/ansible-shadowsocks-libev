@@ -1,12 +1,12 @@
 ---
 - name: install essential repos (7)
-  get_url: url=https://copr.fedoraproject.org/coprs/librehat/shadowsocks/repo/epel-6/librehat-shadowsocks-epel-6.repo
+  get_url: url=https://copr.fedoraproject.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo
            dest=/etc/yum.repos.d/
   when: ansible_distribution_version >= '7'
   tags: prepare
 
 - name: install essential repos (6)
-  get_url: url=https://copr.fedoraproject.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo
+  get_url: url=https://copr.fedoraproject.org/coprs/librehat/shadowsocks/repo/epel-6/librehat-shadowsocks-epel-6.repo
            dest=/etc/yum.repos.d/
   when: ansible_distribution_version < '7'
   tags: prepare
@@ -30,14 +30,14 @@
   notify: restart shadowsocks-libev
   tags: config
 
-- name: sync init service
+- name: sync init service (7)
   template: src=shadowsocks-libev.service
             dest=/usr/lib/systemd/system/
             mode=755
   when: ansible_distribution_version >= '7'
   tags: config
 
-- name: sync init script
+- name: sync init script (6)
   template: src=shadowsocks-libev.init
             dest=/etc/init.d/shadowsocks-libev
             mode=755
