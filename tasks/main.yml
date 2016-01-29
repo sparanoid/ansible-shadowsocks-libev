@@ -1,11 +1,68 @@
 ---
-- name: include OS-specific variables.
-  include_vars: "{{ item }}"
-  with_first_found:
-   - "{{ ansible_distribution }}.yml"
-   - "{{ ansible_os_family }}.yml"
-   - "main.yml"
+- name: install essential repos (7)
+  get_url: url=https://copr.fedoraproject.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo
+           dest=/etc/yum.repos.d/
+  when: ansible_distribution_version >= '7'
+  tags: prepare
 
-# Setup/install tasks.
-- include: RedHat.yml
-  when: ansible_os_family == 'RedHat'
+- name: install essential repos (6)
+  get_url: url=https://copr.fedoraproject.org/coprs/librehat/shadowsocks/repo/epel-6/librehat-shadowsocks-epel-6.repo
+           dest=/etc/yum.repos.d/
+  when: ansible_distribution_version < '7'
+  tags: prepare
+
+- name: install dependencies
+  yum: name={{ item }}
+  with_items: shadowsocks_dependencies
+  notify: restart shadowsocks-libev
+  tags: install
+
+- name: assure shadowsocks-libev home dir exists
+  file: path={{ shadowsocks_home }} state=directory
+
+- name: generate config file
+  template: src=shadowsocks-libev.json
+            dest={{ shadowsocks_home }}/shadowsocks-libev.json
+            mode=640
+            owner=root
+            group=root
+            force=yes
+  notify: restart shadowsocks-libev
+  tags: config
+
+- name: sync init service (7)
+  template: src=shadowsocks-libev.service
+            dest=/usr/lib/systemd/system/
+            mode=755
+  when: ansible_distribution_version >= '7'
+  tags: config
+
+- name: sync init script (6)
+  template: src=shadowsocks-libev.init
+            dest=/etc/init.d/shadowsocks-libev
+            mode=755
+  when: ansible_distribution_version < '7'
+  tags: config
+
+- name: tweak sysctl
+  sysctl: name="{{ item.key }}"
+          value="{{ item.value }}"
+          state=present
+          reload=yes
+          ignoreerrors=yes
+  with_items: shadowsocks_sysctl_params
+  when: shadowsocks_sysctl_tweak
+  tags: sysctl
+
+- name: enable tcp_fastopen if available
+  sysctl: name=net.ipv4.tcp_fastopen
+          value=3
+          state=present
+          reload=yes
+  when: shadowsocks_fast_open and shadowsocks_sysctl_tweak and ansible_kernel | version_compare('3.7', '>=')
+  tags: sysctl
+
+- name: start and enable service
+  service: name=shadowsocks-libev
+           state=started
+           enabled=yes

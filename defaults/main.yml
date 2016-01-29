@@ -1,11 +1,11 @@
 ---
-shadowsocks_home: "/etc/shadowsocks-libev"
-shadowsocks_password: "apn!proxy!ss!ftw!"
+shadowsocks_home: /etc/shadowsocks-libev
+shadowsocks_password: apn!proxy!ss!ftw!
 
-shadowsocks_config_server_port: "443"
-shadowsocks_config_local_port: "3333"
-shadowsocks_config_timeout: "600"
-shadowsocks_config_encryption_method: "aes-256-cfb"
+shadowsocks_config_server_port: 443
+shadowsocks_config_local_port: 3333
+shadowsocks_config_timeout: 600
+shadowsocks_config_encryption_method: aes-256-cfb
 shadowsocks_config_fast_open: yes
 
 shadowsocks_fast_open: false
