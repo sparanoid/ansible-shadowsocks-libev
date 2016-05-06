@@ -7,6 +7,7 @@ shadowsocks_config_local_port: 3333
 shadowsocks_config_timeout: 600
 shadowsocks_config_encryption_method: aes-256-cfb
 shadowsocks_config_fast_open: yes
+shadowsocks_config_dns: 8.8.8.8
 
 shadowsocks_fast_open: false
 shadowsocks_sysctl_tweak: yes

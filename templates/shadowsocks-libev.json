@@ -5,6 +5,7 @@
   , "password": "{{ shadowsocks_password }}"
   , "timeout": {{ shadowsocks_config_timeout }}
   , "method": "{{ shadowsocks_config_encryption_method }}"
+  , "addr": "{{ shadowsocks_config_dns }}"
   {% if shadowsocks_fast_open and ansible_kernel | version_compare('3.7', '>=') -%}
   , "fast_open": true
   {% else -%}
