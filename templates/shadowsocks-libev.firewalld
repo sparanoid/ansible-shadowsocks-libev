@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>shadowsocks-libev</short>
+  <description>lightweight secured socks5 proxy</description>
+  <port protocol="tcp" port="{{ shadowsocks_config_server_port }}"/>
+  <port protocol="udp" port="{{ shadowsocks_config_server_port }}"/>
+</service>
