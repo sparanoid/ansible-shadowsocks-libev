@@ -13,7 +13,7 @@
 
 - name: install dependencies
   yum: name={{ item }}
-  with_items: shadowsocks_dependencies
+  with_items: "{{ shadowsocks_dependencies }}"
   notify: restart shadowsocks-libev
   tags: install
 
@@ -50,7 +50,7 @@
           state=present
           reload=yes
           ignoreerrors=yes
-  with_items: shadowsocks_sysctl_params
+  with_items: "{{ shadowsocks_sysctl_params }}"
   when: shadowsocks_sysctl_tweak
   tags: sysctl
 
