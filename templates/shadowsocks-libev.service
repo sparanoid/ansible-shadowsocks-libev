@@ -5,9 +5,8 @@ After=network.target
 
 [Service]
 Type=simple
-PIDFile=/run/shadowsocks-libev.pid
-ExecStart=/usr/bin/ss-server -c {{ shadowsocks_home }}/shadowsocks-libev.json
-ExecStop=/bin/kill -s INT $MAINPID
+LimitNOFILE=32768
+ExecStart=/usr/bin/ss-server -u -c {{ shadowsocks_home }}/shadowsocks-libev.json
 
 [Install]
 WantedBy=multi-user.target
