@@ -44,7 +44,7 @@
   when: ansible_distribution_version < '7'
   tags: config
 
-- name: sync firewalld service
+- name: sync firewalld service (7)
   template: src=shadowsocks-libev.firewalld
             dest=/etc/firewalld/services/shadowsocks-libev.xml
   when: ansible_distribution_version >= '7'
@@ -53,14 +53,14 @@
     - config
     - firewalld
 
-- name: update firewalld service
+- name: update firewalld service (7)
   shell: firewall-cmd --reload
   when: ansible_distribution_version >= '7' and shadowsocks_libev_firewalld_service_updated.changed
   tags:
     - config
     - firewalld
 
-- name: add shadowsocks-libev service for firewalld
+- name: add shadowsocks-libev service for firewalld (7)
   firewalld: zone=public
              service=shadowsocks-libev
              immediate=true
@@ -89,7 +89,16 @@
   when: shadowsocks_fast_open and shadowsocks_sysctl_tweak and ansible_kernel | version_compare('3.7', '>=')
   tags: sysctl
 
-- name: start and enable service
+- name: start and enable service (7)
+  systemd:
+    name: shadowsocks-libev
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  when: ansible_distribution_version >= '7'
+
+- name: start and enable service (6)
   service: name=shadowsocks-libev
            state=started
            enabled=yes
+  when: ansible_distribution_version < '7'
