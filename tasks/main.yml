@@ -21,6 +21,56 @@
   notify: restart shadowsocks-libev
   tags: install
 
+- name: check if obfs is installed
+  stat:
+    path: /usr/local/bin/obfs-server
+  register: obfs_bin
+
+- name: install obfs
+  when: shadowsocks_obfs
+  tags:
+    - install
+    - obfs
+  block:
+    - name: install obfs dependencies
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items: "{{ obfs_dependencies }}"
+      when: obfs_bin.stat.exists == False
+      notify: restart shadowsocks-libev
+
+    - name: clone obfs
+      git:
+        repo: https://github.com/shadowsocks/simple-obfs.git
+        dest: /tmp/simple-obfs
+        recursive: yes
+        update: yes
+      register: obfs_repo
+
+    - name: recompile if obfs has updates
+      when: obfs_repo.before != obfs_repo.after
+      block:
+        - name: autogen obfs
+          command: ./autogen.sh
+          args:
+            chdir: "/tmp/simple-obfs"
+
+        - name: configure obfs
+          command: ./configure
+          args:
+            chdir: "/tmp/simple-obfs"
+
+        - name: make obfs
+          command: make
+          args:
+            chdir: "/tmp/simple-obfs"
+
+        - name: install obfs
+          command: make install
+          args:
+            chdir: "/tmp/simple-obfs"
+
 - name: assure shadowsocks-libev home dir exists
   file:
     path: "{{ shadowsocks_home }}"

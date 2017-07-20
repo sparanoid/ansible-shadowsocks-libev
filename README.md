@@ -53,6 +53,14 @@ Install shadowsocks-libev without tuning `sysctl` (default: `shadowsocks_sysctl_
     - { role: sparanoid.shadowsocks-libev, shadowsocks_sysctl_tweak: false }
 ```
 
+Install shadowsocks-libev without shadowsocks/simple-obfs support (default: `shadowsocks_obfs: true`):
+
+```yaml
+- hosts: servers
+  roles:
+    - { role: sparanoid.shadowsocks-libev, shadowsocks_obfs: false }
+```
+
 Install shadowsocks-libev using custom specified password (default: `apn!proxy!ss!ftw!`):
 
 ```yaml

@@ -1,3 +1,16 @@
 ---
 shadowsocks_dependencies:
   - shadowsocks-libev
+obfs_dependencies:
+  - git
+  - gcc
+  - autoconf
+  - libtool
+  - automake
+  - make
+  - zlib-devel
+  - openssl-devel
+  - asciidoc
+  - xmlto
+  - libev-devel
+  - udns-devel

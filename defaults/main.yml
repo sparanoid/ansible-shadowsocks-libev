@@ -10,6 +10,7 @@ shadowsocks_config_fast_open: yes
 shadowsocks_config_dns: 8.8.4.4
 
 shadowsocks_fast_open: true
+shadowsocks_obfs: true
 shadowsocks_sysctl_tweak: yes
 shadowsocks_sysctl_params:
   - { "key": "fs.file-max", "value": "51200" }
