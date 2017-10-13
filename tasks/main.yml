@@ -1,4 +1,19 @@
 ---
+- name: check password complexity
+  fail:
+    msg: You're using the default password, please change it or override it in your own playbook!
+  when: shadowsocks_password == "apn!proxy!ss!ftw!"
+  tags: debug
+
+- name: role brief
+  debug:
+    msg: |
+       server port - {{ shadowsocks_config_server_port }}
+         fast open - {{ shadowsocks_fast_open }}
+              obfs - {{ shadowsocks_obfs }}
+            sysctl - {{ shadowsocks_sysctl_tweak }}
+  tags: debug
+
 - name: install essential repos (7)
   get_url:
     url: https://copr.fedoraproject.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo
