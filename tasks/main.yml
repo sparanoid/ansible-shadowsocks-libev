@@ -7,11 +7,11 @@
 
 - name: role brief
   debug:
-    msg: |
-       server port - {{ shadowsocks_config_server_port }}
-         fast open - {{ shadowsocks_fast_open }}
-              obfs - {{ shadowsocks_obfs }}
-            sysctl - {{ shadowsocks_sysctl_tweak }}
+    msg:
+      - shadowsocks_config_server_port - {{ shadowsocks_config_server_port }}
+      - shadowsocks_fast_open - {{ shadowsocks_fast_open }}
+      - shadowsocks_obfs - {{ shadowsocks_obfs }}
+      - shadowsocks_sysctl_tweak - {{ shadowsocks_sysctl_tweak }}
   tags: debug
 
 - name: install essential repos (7)
