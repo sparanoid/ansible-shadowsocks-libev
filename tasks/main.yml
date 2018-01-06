@@ -133,7 +133,6 @@
   firewalld:
     zone: public
     service: shadowsocks-libev
-    immediate: true
     permanent: true
     state: enabled
   when: ansible_distribution_version >= '7'
