@@ -79,6 +79,7 @@
           command: make install
           args:
             chdir: "/tmp/simple-obfs"
+          notify: restart shadowsocks-libev
 
 - name: assure shadowsocks-libev home dir exists
   file:
