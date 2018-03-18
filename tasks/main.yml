@@ -118,14 +118,6 @@
     src: shadowsocks-libev.firewalld
     dest: /etc/firewalld/services/shadowsocks-libev.xml
   when: ansible_distribution_version >= '7'
-  register: shadowsocks_libev_firewalld_service_updated
-  tags:
-    - config
-    - firewalld
-
-- name: update firewalld service (7)
-  shell: firewall-cmd --reload
-  when: ansible_distribution_version >= '7' and shadowsocks_libev_firewalld_service_updated.changed
   tags:
     - config
     - firewalld
