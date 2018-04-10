@@ -34,7 +34,7 @@ Install shadowsocks-libev with different encryption (default: `aes-256-cfb`):
 ```yaml
 - hosts: servers
   roles:
-    - { role: sparanoid.shadowsocks-libev, shadowsocks_config_encryption_method: salsa20 }
+    - { role: sparanoid.shadowsocks-libev, shadowsocks_config_method: salsa20 }
 ```
 
 Install shadowsocks-libev with different server port (default: `443`):

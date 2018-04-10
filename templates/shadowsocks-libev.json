@@ -4,11 +4,12 @@
   , "local_port": {{ shadowsocks_config_local_port }}
   , "password": "{{ shadowsocks_password }}"
   , "timeout": {{ shadowsocks_config_timeout }}
-  , "method": "{{ shadowsocks_config_encryption_method }}"
+  , "method": "{{ shadowsocks_config_method }}"
   , "addr": "{{ shadowsocks_config_dns }}"
+  , "mode": "{{ shadowsocks_config_mode }}"
   {% if shadowsocks_obfs -%}
-  , "plugin": "obfs-server"
-  , "plugin_opts": "obfs=http"
+  , "plugin": "{{ shadowsocks_config_plugin }}"
+  , "plugin_opts": "{{ shadowsocks_config_plugin_opts }}"
   {% endif %}
   {% if shadowsocks_fast_open and ansible_kernel | version_compare('3.7', '>=') -%}
   , "fast_open": true
