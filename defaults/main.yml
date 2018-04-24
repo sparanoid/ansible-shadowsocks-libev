@@ -10,7 +10,7 @@ shadowsocks_config_fast_open: yes
 shadowsocks_config_dns: 8.8.4.4
 shadowsocks_config_mode: tcp_and_udp
 shadowsocks_config_plugin: obfs-server
-shadowsocks_config_plugin_opts: obfs=http
+shadowsocks_config_plugin_opts: obfs=http;fast-open
 
 shadowsocks_fast_open: true
 shadowsocks_obfs: true
