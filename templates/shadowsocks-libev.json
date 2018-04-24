@@ -11,7 +11,7 @@
   , "plugin": "{{ shadowsocks_config_plugin }}"
   , "plugin_opts": "{{ shadowsocks_config_plugin_opts }}"
   {% endif %}
-  {% if shadowsocks_fast_open and ansible_kernel | version_compare('3.7', '>=') -%}
+  {% if shadowsocks_fast_open and ansible_kernel is version_compare('3.7', '>=') -%}
   , "fast_open": true
   {% else -%}
   , "fast_open": false

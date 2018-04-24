@@ -150,7 +150,7 @@
     value: 3
     state: present
     reload: yes
-  when: shadowsocks_fast_open and shadowsocks_sysctl_tweak and ansible_kernel | version_compare('3.7', '>=')
+  when: shadowsocks_fast_open and shadowsocks_sysctl_tweak and ansible_kernel is version_compare('3.7', '>=')
   tags: sysctl
 
 - name: start and enable service (7)
