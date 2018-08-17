@@ -49,12 +49,24 @@
       with_items: "{{ obfs_dependencies }}"
       notify: restart shadowsocks-libev
 
+    - name: check obfs git integrity
+      stat:
+        path: /tmp/simple-obfs/INSTALL
+      register: obfs_integrity
+
+    - name: remove corrupted obfs repo
+      file:
+        path: /tmp/simple-obfs
+        state: absent
+      when: not obfs_integrity.stat.exists
+
     - name: clone obfs
       git:
         repo: https://github.com/shadowsocks/simple-obfs.git
         dest: /tmp/simple-obfs
         recursive: yes
         update: yes
+        force: yes
       register: obfs_repo
 
     - name: recompile if obfs has updates
