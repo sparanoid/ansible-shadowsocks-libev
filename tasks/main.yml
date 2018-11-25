@@ -30,9 +30,8 @@
 
 - name: install dependencies
   yum:
-    name: "{{ item }}"
+    name: "{{ shadowsocks_dependencies }}"
     state: latest
-  with_items: "{{ shadowsocks_dependencies }}"
   notify: restart shadowsocks-libev
   tags: install
 
@@ -44,9 +43,8 @@
   block:
     - name: install obfs dependencies
       yum:
-        name: "{{ item }}"
+        name: "{{ obfs_dependencies }}"
         state: latest
-      with_items: "{{ obfs_dependencies }}"
       notify: restart shadowsocks-libev
 
     - name: check obfs git integrity
