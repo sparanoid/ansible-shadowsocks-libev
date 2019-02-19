@@ -1,6 +1,9 @@
 ---
+repos:
+  - "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
 shadowsocks_dependencies:
-  - shadowsocks-libev
+  - libsodium
+  - mbedtls
 obfs_dependencies:
   - git
   - gcc

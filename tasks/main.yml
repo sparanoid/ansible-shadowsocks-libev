@@ -28,9 +28,23 @@
   when: ansible_distribution_version < '7'
   tags: prepare
 
+- name: install essential repos
+  yum:
+    name: "{{ repos }}"
+    state: present
+    validate_certs: no
+  tags: install
+
 - name: install dependencies
   yum:
     name: "{{ shadowsocks_dependencies }}"
+    state: latest
+  notify: restart shadowsocks-libev
+  tags: install
+
+- name: install shadowsocks
+  yum:
+    name: "shadowsocks-libev"
     state: latest
   notify: restart shadowsocks-libev
   tags: install
